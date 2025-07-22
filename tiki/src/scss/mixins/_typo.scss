@@ -1,0 +1,45 @@
+@mixin fontInter {
+  font-family: Inter, Helvetica, Arial, sans-serif;
+}
+
+@mixin fontStyle($fontWeight: 600, $fontSize: 48px, $lineHeight: 1.1, $textColor: $color) {
+  font-weight: $fontWeight;
+  font-size: $fontSize;
+  line-height: $lineHeight;
+  color: $textColor;
+}
+
+@mixin heading1($color: $grayDarker) {
+  @include fontInter();
+  @include fontStyle($textColor: $color);
+}
+
+@mixin heading2($color: $grayDarker) {
+  @include fontInter();
+  @include fontStyle($fontSize: 32px, $lineHeight: 1.2, $textColor: $color);
+}
+
+@mixin heading3($color: $grayDarker) {
+  @include fontInter();
+  @include fontStyle($fontSize: 24px, $lineHeight: 1.25, $textColor: $color);
+}
+
+@mixin heading4($color: $grayDarker, $lineHeight: 1.4) {
+  @include fontInter();
+  @include fontStyle($fontSize: 20px, $lineHeight: $lineHeight, $textColor: $color);
+}
+
+@mixin heading5($color: $grayDarker, $fontWeight: 500) {
+  @include fontInter();
+  @include fontStyle($fontWeight: $fontWeight, $fontSize: 15px, $lineHeight: 1.5, $textColor: $color);
+}
+
+@mixin heading6($color: $grayDarker, $fontWeight: 600) {
+  @include fontInter();
+  @include fontStyle($fontWeight: $fontWeight, $fontSize: 12px, $lineHeight: 1.5, $textColor: $color);
+}
+
+@mixin textBody($color: $grayDarker) {
+  @include fontInter();
+  @include fontStyle(400, $fontSize: 14px, $lineHeight: 1.15, $textColor: $color);
+}

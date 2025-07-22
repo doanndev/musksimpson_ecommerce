@@ -1,0 +1,499 @@
+// sass .\src\site-customer\pages\cart\style.scss .\src\site-customer\pages\cart\style.css --watch
+
+@import '../../../scss/bases/base';
+
+.cart {
+  padding: 20px 12px;
+
+  &--heading {
+    @include heading4;
+
+    margin-top: 32px;
+    font-weight: 500;
+    padding-bottom: 20px;
+    position: relative;
+    z-index: 999;
+  }
+
+  &__container {
+    @include dFlex($align: start, $gap: 20px);
+  }
+
+  &__table {
+    width: calc(100% - 340px);
+  }
+
+  &__table-head {
+    position: sticky;
+    top: 20px;
+    z-index: 99;
+    margin-bottom: 12px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      width: 100%;
+      height: 80px;
+      background-color: $bgPrimary;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      width: 100%;
+      height: 12px;
+      background-color: $bgPrimary;
+    }
+  }
+
+  &__table-group {
+    margin-bottom: 12px;
+  }
+
+  &__table-row {
+    padding: 9px 16px;
+    display: grid;
+    grid-template-columns: 400px 170px 100px 170px 30px;
+    align-items: center;
+    gap: 30px;
+    background-color: $white;
+    border-radius: 8px;
+  }
+
+  &__table-col {
+    @include dFlex(start);
+  }
+
+  &__table-label {
+    @include dFlex($gap: 8px);
+  }
+
+  &__table-icon-home {
+    width: 15px;
+    height: 15px;
+  }
+
+  &__table-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: $blueMedium;
+    margin-right: 12px;
+  }
+
+  &__table-product-image {
+    width: 76px;
+    height: 76px;
+    background-color: $grayLighter;
+  }
+
+  &__table-product {
+    @include dFlex(start, $gap: 8px);
+    flex: 1;
+  }
+
+  &__table-quantity {
+    @include dFlex(start);
+
+    width: fit-content;
+    border-radius: 8px;
+    border: 1px solid $lineColor;
+    height: 30px;
+  }
+
+  &__table-quantity-input {
+    width: 40px;
+    height: 100%;
+    text-align: center;
+    border-left: 1px solid $lineColor;
+    border-right: 1px solid $lineColor;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  &__table-quantity-btn {
+    @include dFlex(center);
+
+    width: 30px;
+    height: 100%;
+
+    &.disable {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+  }
+
+  &__table-price {
+    @include dFlex(start, end, 8px);
+    margin: 0 15px;
+
+    .price-current {
+      font-weight: 500;
+    }
+
+    .price-discount {
+      font-size: 11px;
+      color: $grayMedium;
+      text-decoration: line-through;
+    }
+  }
+
+  &__table-money {
+    font-weight: 500;
+    color: $redMedium;
+  }
+
+  &__table-product-name {
+    @include textOverflowEllipsis(2);
+    flex: 1;
+  }
+
+  &__table-seller {
+    @include heading5;
+  }
+
+  &__checkout {
+    width: 340px;
+    flex: 1;
+  }
+
+  &__checkout-coupon,
+  &__checkout-price {
+    background-color: $white;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  &__checkout-coupon {
+    &--info {
+      @include dFlex($gap: 8px);
+    }
+  }
+
+  &__checkout-coupon-choice {
+    @include dFlex;
+
+    margin-top: 30px;
+    color: $blueDark;
+  }
+
+  &__checkout-coupon-header,
+  &__checkout-price-top,
+  &__checkout-price-body {
+    @include dFlex($align: end);
+  }
+
+  &__checkout-price {
+    padding: 0;
+    font-weight: 500;
+
+    &--final {
+      font-size: 22px;
+      color: $redMedium;
+    }
+  }
+
+  &__checkout-body {
+    position: sticky;
+    top: 20px;
+    z-index: 99;
+  }
+
+  &__checkout-price-top,
+  &__checkout-price-body {
+    padding: 17px 20px;
+    border-bottom: 1px solid $borderGray;
+  }
+
+  &__checkout-price-body {
+    border-bottom: 0;
+  }
+
+  &__checkout-price-btn {
+    @include heading5($white);
+
+    width: 100%;
+    padding: 14px 10px;
+    background-color: $redMedium;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+
+
+.checkout {
+  &__form {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    padding: 1rem;
+
+    &__footer {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__button {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+
+    &--primary {
+      background: #0a68ff;
+      color: white;
+    }
+
+    &--gray {
+      background: #6b7280;
+      color: white;
+    }
+
+    &--secondary {
+      background: white;
+      border: 1px solid #ccc;
+      color: #333;
+    }
+  }
+}
+
+
+.checkout__address--header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkout__address--tag {
+  color: #0a68ff
+}
+
+
+.checkout {
+  @include dFlex(start, stretch, 24px);
+
+  margin: 48px auto !important;
+
+  &--bg-white {
+    padding: 16px;
+    background-color: $white;
+    border-radius: 10px;
+  }
+
+  &__left,
+  &__right {
+    @include dFlexCol(start, stretch, 16px);
+  }
+
+  &__left {
+    width: calc(100% - 350px);
+  }
+
+  &__right {
+    width: 350px;
+  }
+
+  &__form-container {
+    margin-top: 24px;
+  }
+
+  &__form-group {
+    @include dFlex(start);
+    padding-bottom: 16px;
+    flex: 1;
+
+    input,
+    select {
+      border: 0;
+      outline: 0;
+      border: 1px solid $borderGray;
+      width: 400px;
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      transition: 0.3s;
+      border-radius: 8px;
+
+      &:focus {
+        border: 1px solid $blueMedium;
+      }
+    }
+  }
+
+  &__form-radio {
+    @include dFlex(start, $gap: 12px);
+  }
+
+  &__form-radio-group {
+    @include dFlex(start, $gap: 16px);
+
+    input {
+      width: 16px;
+    }
+  }
+
+  &__form-label {
+    width: 150px;
+    font-weight: 600;
+  }
+
+  &__form-submit {
+    margin-top: 32px;
+    padding: 12px 48px;
+    background-color: $blueMedium;
+    color: $white;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: $blueDark;
+    }
+  }
+
+  &__pay-group {
+    @include dFlex(start, $gap: 16px);
+    padding-top: 16px;
+
+    label {
+      @include dFlex(start, $gap: 16px);
+      @include textBody;
+    }
+
+    img {
+      width: 32px;
+    }
+  }
+
+  &__address {
+    @include dFlexCol(start, start, 12px);
+
+    &--title {
+      color: $grayLight;
+      font-size: 16px;
+    }
+
+    h4 {
+      color: $grayDarkest;
+    }
+
+    &--text {
+      @include dFlex(start, start, 4px);
+    }
+
+    .tag {
+      color: $green;
+      background-color: rgba($green, 0.2);
+      padding: 2px 4px;
+      border-radius: 9999px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+  }
+
+  &__order {
+    width: 340px;
+    height: fit-content;
+  }
+
+  &__order-title {
+    @include dFlex;
+
+    a {
+      color: $blueMedium;
+    }
+  }
+
+  &__order-coupon,
+  &__order-price {
+    background-color: $white;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  &__order-coupon {
+    &--info {
+      @include dFlex($gap: 8px);
+    }
+  }
+
+  &__order-coupon-choice {
+    @include dFlex;
+
+    margin-top: 30px;
+    color: $blueDark;
+  }
+
+  &__order-coupon-header,
+  &__order-price-top,
+  &__order-price-body {
+    @include dFlex($align: end);
+  }
+
+  &__order-price {
+    padding: 0;
+    font-weight: 500;
+
+    &--final {
+      font-size: 22px;
+      color: $redMedium;
+    }
+  }
+
+
+
+  &__order-price-top,
+  &__order-price-body {
+    padding: 17px 0;
+    border-bottom: 1px solid $borderGray;
+  }
+
+  &__order-price-body {
+    border-bottom: 0;
+  }
+
+  &__order-price-btn {
+    @include heading5($white);
+
+    width: 100%;
+    padding: 14px 10px;
+    background-color: $redMedium;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+.alert-success {
+  @include dFlex(start, $gap: 16px);
+  color: $green;
+  background-color: rgba($green, 0.2);
+  padding: 16px;
+  font-size: 12px;
+  white-space: nowrap;
+  font-weight: 500;
+  font-size: 16px;
+  border-radius: 10px;
+
+  img {
+    width: 24px;
+  }
+}

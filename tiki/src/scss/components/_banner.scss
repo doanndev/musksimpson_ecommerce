@@ -1,0 +1,23 @@
+// sass .\src\site-customer\scss\components\_banner.scss .\src\site-customer\styles\banner\style.css --watch
+
+.banner {
+  a {
+    @include dFlex(center, $gap: 4px);
+  }
+  position: relative;
+  z-index: 9;
+  padding: 8px 16px;
+  background-color: $yellowLight;
+
+  &__freeship {
+    width: 81px;
+  }
+
+  &__title {
+    font-weight: 500;
+  }
+
+  &__icon {
+    width: 07px;
+  }
+}

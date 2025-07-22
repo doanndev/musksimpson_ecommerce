@@ -1,0 +1,31 @@
+@mixin dFlex($justify: space-between, $align: center, $gap: 0, $wrap: nowrap) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+  gap: $gap;
+}
+
+@mixin dFlexCol(
+  $justify: space-between,
+  $align: center,
+  $gap: 0,
+  $wrap: nowrap,
+  $direction: column
+) {
+  @include dFlex($justify, $align, $gap, $wrap);
+  flex-direction: $direction;
+}
+
+@mixin dGrid($columns, $gap: 0) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  grid-gap: $gap;
+}
+
+@mixin textOverflowEllipsis($line: 1) {
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

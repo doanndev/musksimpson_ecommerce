@@ -1,0 +1,69 @@
+// sass .\src\site-customer\scss\components\_slider.scss .\src\site-customer\styles\slider\style.css --watch
+
+.slider {
+  margin: 0 !important;
+
+  a {
+    display: block;
+  }
+
+  .swiper-pagination-bullet {
+    width: 24px;
+    height: 2px;
+    background-color: rgba($white, 0.5);
+    border-radius: 0;
+
+    &.swiper-pagination-bullet-active {
+      background-color: $white;
+    }
+  }
+
+  &:hover .swiper-button-prev,
+  &:hover .swiper-button-next {
+    opacity: 1;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 32px;
+    height: 32px;
+    z-index: 3;
+    background-color: rgba($white, 0.3);
+    border-radius: 9999px;
+    color: $white;
+    opacity: 0.3;
+
+    &::after {
+      font-size: 12px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__arrow::before {
+    display: none;
+  }
+
+  &__arrow-prev {
+    left: 10px;
+  }
+
+  &__arrow-next {
+    right: 10px;
+
+    img {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__link {
+    width: 100%;
+
+    img {
+      width: 100%;
+    }
+  }
+}

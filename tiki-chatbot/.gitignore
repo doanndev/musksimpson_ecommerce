@@ -1,0 +1,9 @@
+# .gitignore
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+
+
+# env files (can opt-in for commiting if needed)
+.env

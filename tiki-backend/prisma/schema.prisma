@@ -1,0 +1,371 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Enums
+enum RoleEnum {
+  ADMIN
+  USER
+  SELLER
+}
+
+enum PermissionEnum {
+  VIEW_USERS
+  EDIT_USERS
+  VIEW_PRODUCTS
+  MANAGE_PRODUCTS
+  MANAGE_CATEGORIES
+  MANAGE_ADDRESSES
+  CREATE_REVIEW
+  DELETE_REVIEW
+  MANAGE_ORDERS
+  MANAGE_PERMISSIONS
+  VIEW_ORDERS
+  CREATE_SHOP
+  EDIT_SHOP
+  DELETE_SHOP
+  VIEW_SHOP
+  MANAGE_SHOPS
+  MANAGE_HIDDEN_USERS
+}
+
+enum OrderStatusEnum {
+  PENDING
+  PROCESSING
+  SHIPPING
+  DELIVERED
+  CANCELLED
+}
+
+enum AddressTypeEnum {
+  HOME
+  WORK
+  OTHER
+}
+
+enum PaymentStatusEnum {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+  PROCESSING
+}
+
+// Models
+model users {
+  id                   Int                    @id @default(autoincrement())
+  uuid                 String                 @unique @db.VarChar(36)
+  username             String                 @unique @db.VarChar(50)
+  email                String                 @unique @db.VarChar(255)
+  full_name            String?                @db.VarChar(100)
+  password             String?                @db.VarChar(255)
+  phone_number         String?                @db.VarChar(20)
+  avatar               String?                @db.VarChar(255)
+  gender               Boolean?               @default(true)
+  day_of_birth         String?                @db.VarChar(150)
+  email_verified_at    DateTime?              @db.DateTime
+  last_login           DateTime?              @db.DateTime
+  role_id              Int
+  role                 roles                  @relation(fields: [role_id], references: [id], onDelete: Restrict)
+  is_public            Boolean                @default(true)
+  is_activated         Boolean                @default(true)
+  is_deleted           Boolean                @default(false)
+  two_factor_enabled   Boolean                @default(false)
+  provider             String                 @default("email") @db.VarChar(20)
+  provider_id          String?                @db.VarChar(255)
+  created_at           DateTime               @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at           DateTime               @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+  addresses            addresses[]
+  orders               orders[]
+  cart_items           cart_items[]
+  reviews              reviews[]
+  payments             payments[]
+  conversations        conversations[]
+  reset_password_token reset_password_token[]
+  shops                shops[]
+  hidden_by_sellers    seller_hidden_users[]  @relation("Seller")
+  hidden_users         seller_hidden_users[]  @relation("HiddenUser")
+
+  @@unique([email, provider])
+}
+
+model roles {
+  id               Int                @id @default(autoincrement())
+  name             RoleEnum           @unique
+  created_at       DateTime           @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at       DateTime           @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+  users            users[]
+  role_permissions role_permissions[]
+}
+
+model permissions {
+  id               Int                @id @default(autoincrement())
+  name             PermissionEnum     @unique
+  created_at       DateTime           @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at       DateTime           @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+  role_permissions role_permissions[]
+}
+
+model role_permissions {
+  id            Int         @id @default(autoincrement())
+  role_id       Int
+  permission_id Int
+  role          roles       @relation(fields: [role_id], references: [id], onDelete: Cascade)
+  permission    permissions @relation(fields: [permission_id], references: [id], onDelete: Cascade)
+  created_at    DateTime    @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at    DateTime    @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+
+  @@unique([role_id, permission_id])
+}
+
+model shops {
+  id          Int        @id @default(autoincrement())
+  uuid        String     @unique @db.VarChar(36)
+  seller_id   Int
+  seller      users      @relation(fields: [seller_id], references: [id], onDelete: Cascade)
+  name        String     @db.VarChar(100)
+  slug        String     @unique @db.VarChar(255)
+  description String?    @db.Text
+  logo        String?    @db.VarChar(255)
+  address_id  Int?
+  address     addresses? @relation(fields: [address_id], references: [id], onDelete: SetNull)
+  rating      Float?     @default(0)
+  is_active   Boolean    @default(true)
+  is_deleted  Boolean    @default(false)
+  created_at  DateTime   @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at  DateTime   @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+  products    products[]
+}
+
+model addresses {
+  id            Int              @id @default(autoincrement())
+  user_id       Int
+  user          users            @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  full_name     String           @db.VarChar(100)
+  phone_number  String           @db.VarChar(20)
+  address       String           @db.Text
+  province_id   Int?
+  province_name String?
+  district_id   Int?
+  district_name String?
+  ward_code     String?          @db.VarChar(50)
+  ward_name     String?          @db.VarChar(50)
+  region_id     Int?
+  type_address  AddressTypeEnum? @default(HOME)
+  is_default    Boolean          @default(false)
+  is_deleted    Boolean          @default(false)
+  created_at    DateTime         @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at    DateTime         @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+  orders        orders[]
+  shops         shops[]
+}
+
+model products {
+  id                     Int                      @id @default(autoincrement())
+  uuid                   String                   @unique @db.VarChar(36)
+  name                   String                   @db.VarChar(255)
+  slug                   String                   @db.VarChar(255)
+  description            String?                  @db.Text
+  old_price              Float?
+  new_price              Float
+  discount_percentage    Float?
+  stock                  Int                      @default(0)
+  sold                   Int                      @default(0)
+  weight                 Float?                   @default(0)
+  category_id            Int?
+  category               categories?              @relation(fields: [category_id], references: [id], onDelete: Restrict)
+  shop_id                Int?
+  shop                   shops?                   @relation(fields: [shop_id], references: [id], onDelete: Restrict)
+  is_deleted             Boolean                  @default(false)
+  created_at             DateTime                 @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at             DateTime                 @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+  cart_items             cart_items[]
+  order_items            order_items[]
+  reviews                reviews[]
+  product_images         product_images[]
+  product_specifications product_specifications[]
+  product_attributes     product_attributes[]
+}
+
+model categories {
+  id                   Int                    @id @default(autoincrement())
+  uuid                 String                 @unique @db.VarChar(36)
+  name                 String                 @unique @db.VarChar(100)
+  icon                 String?                @db.Text
+  slug                 String                 @unique @db.VarChar(255)
+  parent_id            Int?
+  parent               categories?            @relation("CategoryHierarchy", fields: [parent_id], references: [id], onDelete: SetNull)
+  children             categories[]           @relation("CategoryHierarchy")
+  is_deleted           Boolean                @default(false)
+  created_at           DateTime               @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at           DateTime               @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+  products             products[]
+  category_breadcrumbs category_breadcrumbs[]
+}
+
+model category_breadcrumbs {
+  id          Int        @id @default(autoincrement())
+  category_id Int
+  category    categories @relation(fields: [category_id], references: [id], onDelete: Cascade)
+  name        String     @db.VarChar(255)
+  path        String     @db.VarChar(255)
+  level       Int        @db.SmallInt
+  created_at  DateTime   @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at  DateTime   @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+}
+
+model product_images {
+  id         Int      @id @default(autoincrement())
+  product_id Int
+  product    products @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  url        String   @db.VarChar(255)
+  is_primary Boolean  @default(false)
+  created_at DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+}
+
+model product_specifications {
+  id                 Int                  @id @default(autoincrement())
+  product_id         Int
+  product            products             @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  key                String               @db.VarChar(100)
+  value              String               @db.Text
+  created_at         DateTime             @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at         DateTime             @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+  product_attributes product_attributes[]
+}
+
+model product_attributes {
+  id               Int                    @id @default(autoincrement())
+  product_id       Int
+  product          products               @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  specification_id Int
+  specification    product_specifications @relation(fields: [specification_id], references: [id], onDelete: Cascade)
+  name             String                 @db.VarChar(100)
+  value            String                 @db.Text
+  created_at       DateTime               @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at       DateTime               @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+}
+
+model orders {
+  id           Int             @id @default(autoincrement())
+  uuid         String          @unique @db.VarChar(36)
+  user_id      Int
+  user         users           @relation(fields: [user_id], references: [id], onDelete: Restrict)
+  address_id   Int
+  address      addresses       @relation(fields: [address_id], references: [id], onDelete: Restrict)
+  total_amount Float
+  status       OrderStatusEnum @default(PENDING)
+  is_deleted   Boolean         @default(false)
+  created_at   DateTime        @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at   DateTime        @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+  order_items  order_items[]
+  payments     payments[]
+}
+
+model order_items {
+  id         Int      @id @default(autoincrement())
+  order_id   Int
+  order      orders   @relation(fields: [order_id], references: [id], onDelete: Cascade)
+  product_id Int
+  product    products @relation(fields: [product_id], references: [id], onDelete: Restrict)
+  quantity   Int
+  unit_price Float
+  created_at DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+}
+
+model cart_items {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  user       users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  product_id Int
+  product    products @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  quantity   Int
+  created_at DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+}
+
+model reviews {
+  id         Int      @id @default(autoincrement())
+  uuid       String   @unique @db.VarChar(36)
+  user_id    Int
+  user       users    @relation(fields: [user_id], references: [id], onDelete: Restrict)
+  product_id Int
+  product    products @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  rating     Int      @db.SmallInt
+  comment    String?  @db.Text
+  is_deleted Boolean  @default(false)
+  created_at DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+}
+
+model payments {
+  id             Int               @id @default(autoincrement())
+  uuid           String            @unique @db.VarChar(36)
+  order_id       Int?              // Allow null initially
+  order          orders?           @relation(fields: [order_id], references: [id], onDelete: Restrict)
+  user_id        Int
+  user           users             @relation(fields: [user_id], references: [id], onDelete: Restrict)
+  amount         Float
+  provider       String            @db.VarChar(50)
+  transaction_id String?           @db.VarChar(100)
+  status         PaymentStatusEnum @default(PENDING)
+  items          Json?             // Store cart items temporarily
+  is_deleted     Boolean           @default(false)
+  created_at     DateTime          @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at     DateTime          @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+}
+
+model email_blacklist {
+  id         Int      @id @default(autoincrement())
+  email      String   @unique @db.VarChar(255)
+  created_at DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+}
+
+model conversations {
+  id         Int        @id @default(autoincrement())
+  chat_id    String     @unique @db.VarChar(255)
+  title      String?    @db.VarChar(255)
+  started_at DateTime   @default(now()) @db.Timestamp(0)
+  user_id    Int
+  user       users      @relation(fields: [user_id], references: [id], onDelete: Restrict)
+  messages   messages[]
+}
+
+model messages {
+  id           Int           @id @default(autoincrement())
+  chat_id      String        @db.VarChar(255)
+  sender       String        @db.VarChar(50)
+  message      String        @db.Text
+  created_at   DateTime      @default(now()) @db.Timestamp(0)
+  conversation conversations @relation(fields: [chat_id], references: [chat_id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model reset_password_token {
+  id         Int      @id @default(autoincrement())
+  user_id    String
+  token      String   @db.Text
+  expires_at DateTime
+  created_at DateTime @default(now())
+  user       users    @relation(fields: [user_id], references: [uuid])
+}
+
+model seller_hidden_users {
+  id         Int      @id @default(autoincrement())
+  seller_id  Int
+  user_id    Int
+  seller     users    @relation("Seller", fields: [seller_id], references: [id], onDelete: Cascade)
+  user       users    @relation("HiddenUser", fields: [user_id], references: [id], onDelete: Cascade)
+  created_at DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @db.DateTime
+  updated_at DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @updatedAt @db.DateTime
+
+  @@unique([seller_id, user_id])
+}

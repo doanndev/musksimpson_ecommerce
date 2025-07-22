@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1748697815531" clover="3.2.0">
+  <project timestamp="1748697815531" name="All files">
+    <metrics statements="31" coveredstatements="29" conditionals="15" coveredconditionals="12" methods="3" coveredmethods="3" elements="49" coveredelements="44" complexity="0" loc="31" ncloc="31" packages="1" files="1" classes="1"/>
+    <file name="calculateShipping.util.ts" path="/home/luanthnh/Public/Workspaces/front_end/tiki/backend/src/libs/utils/calculateShipping.util.ts">
+      <metrics statements="31" coveredstatements="29" conditionals="15" coveredconditionals="12" methods="3" coveredmethods="3"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="25" count="1" type="stmt"/>
+      <line num="66" count="10" type="stmt"/>
+      <line num="67" count="20" type="stmt"/>
+      <line num="74" count="10" type="stmt"/>
+      <line num="75" count="10" type="stmt"/>
+      <line num="77" count="10" type="stmt"/>
+      <line num="78" count="10" type="stmt"/>
+      <line num="81" count="10" type="stmt"/>
+      <line num="82" count="20" type="stmt"/>
+      <line num="84" count="10" type="stmt"/>
+      <line num="85" count="10" type="stmt"/>
+      <line num="91" count="10" type="cond" truecount="2" falsecount="0"/>
+      <line num="93" count="5" type="stmt"/>
+      <line num="94" count="5" type="stmt"/>
+      <line num="95" count="5" type="cond" truecount="4" falsecount="1"/>
+      <line num="97" count="0" type="stmt"/>
+      <line num="98" count="0" type="stmt"/>
+      <line num="99" count="5" type="cond" truecount="2" falsecount="0"/>
+      <line num="101" count="2" type="stmt"/>
+      <line num="102" count="2" type="stmt"/>
+      <line num="103" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="105" count="2" type="stmt"/>
+      <line num="106" count="2" type="stmt"/>
+      <line num="109" count="1" type="stmt"/>
+      <line num="110" count="1" type="stmt"/>
+      <line num="114" count="10" type="stmt"/>
+      <line num="115" count="10" type="stmt"/>
+      <line num="118" count="10" type="stmt"/>
+      <line num="120" count="10" type="stmt"/>
+      <line num="123" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>

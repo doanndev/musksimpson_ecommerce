@@ -1,0 +1,57 @@
+@import '../../../../scss/bases/base';
+
+.dialog {
+  @include position(fixed, 0, 0, 0, 0, 999999);
+  @include dFlex(center);
+
+  background-color: rgba($black, 0.6);
+  display: none;
+
+  &.show {
+    display: flex;
+  }
+
+  &__container {
+    padding: 16px;
+    background-color: $white;
+    border-radius: 8px;
+  }
+
+  &__content {
+    @include dFlex(start, start, 12px);
+  }
+
+  &__content-title {
+    @include heading5;
+
+    padding-bottom: 8px;
+  }
+
+  &__control {
+    @include dFlex(end, $gap: 8px);
+
+    margin-top: 24px;
+  }
+
+  &__control-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    height: 36px;
+    cursor: pointer;
+    font-weight: 500;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &--outline {
+      color: $blueMedium;
+      border: 1px solid $blueMedium;
+    }
+
+    &--primary {
+      color: $white;
+      background-color: $blueMedium;
+    }
+  }
+}

@@ -1,0 +1,253 @@
+// sass .\src\site-customer\scss\components\_form.scss .\src\site-customer\styles\form\style.css --watch
+
+@import '../../../../../scss/bases/base';
+
+.form {
+  @include dFlex(start, stretch);
+
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: $white;
+  border-radius: 20px;
+  position: relative;
+  cursor: auto;
+  box-shadow: 0 1px 10px rgba($black, 0.05);
+
+  &__login {
+    flex-direction: row-reverse;
+  }
+
+  @include maxWidth($lg) {
+    @include dFlexCol(start, center, $direction: column-reverse);
+
+    border-radius: 0;
+  }
+
+  &__input.error {
+    border-color: $redBright;
+  }
+
+  &__input.success {
+    border-color: $green;
+  }
+
+  &__input.error + &__message-valid,
+  &__input.success + &__message-valid {
+    display: block;
+  }
+
+  &__main {
+    width: 50%;
+    padding: 40px 45px 24px;
+
+    @include maxWidth($lg) {
+      width: 100%;
+    }
+
+    &--heading {
+      margin-bottom: 10px;
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    &--text {
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 18px;
+    color: $grayDark;
+    border-bottom: 1px solid $borderGray;
+
+    &::placeholder {
+      color: #999;
+    }
+  }
+
+  &__btn-submit {
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding: 13px 0;
+    font-size: 20px;
+    font-family: inherit;
+    cursor: pointer;
+    background-color: $redBright;
+    color: $white;
+    border-radius: 8px;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &:disabled {
+      background-color: $gray;
+    }
+  }
+
+  &__btn-forgot-password {
+    display: block;
+    text-align: center;
+  }
+
+  &__btn-switch {
+    display: block;
+    color: #0d5cb6;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 10px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__footer {
+    margin-top: 8px;
+    color: $grayLight;
+  }
+
+  &__text-line {
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 15px;
+    position: relative;
+
+    span {
+      background-color: $white;
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    &::after {
+      @include positionCenter($left: 0, $x: 0);
+
+      content: '';
+      width: 100%;
+      height: 0.8px;
+      background-color: $borderGray;
+    }
+  }
+
+  &__login-other {
+    @include dFlexCol(center, center, 8px);
+  }
+
+  &__btn-google,
+  &__btn-facebook {
+    @include dFlex(center, $gap: 8px);
+    @include heading5();
+
+    width: 100%;
+    padding: 6px 16px;
+    border: 1px solid $borderGray;
+    border-radius: 5px;
+    text-align: center;
+
+    img {
+      width: 28px;
+    }
+  }
+
+  &__btn-facebook {
+    img {
+      width: 42px;
+    }
+  }
+
+  &__footer-btn {
+    width: 58px;
+    height: 58px;
+    margin: 0 10px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__footer-rules {
+    margin: 10px 0;
+    text-align: center;
+    font-size: 11px;
+
+    a {
+      text-decoration: underline;
+      margin-left: 4px;
+    }
+  }
+
+  &__thumbnail {
+    @include dFlexCol(center);
+
+    width: 400px;
+    min-height: 350px;
+    flex: 1;
+    background: linear-gradient(136deg, #f0f8ff -1%, #dbeeff 85%);
+
+    @include maxWidth($lg) {
+      position: relative;
+      width: 100%;
+
+      &::before {
+        position: absolute;
+        top: 0;
+        content: '';
+        width: 100%;
+        height: 100%;
+        background: url('https://salt.tikicdn.com/ts/upload/38/1a/0c/c9160ec942ae0348aae9bdad444f6ac5.jpg') no-repeat
+          center top 100% / cover;
+        background-color: $white;
+      }
+    }
+
+    img {
+      width: 400px;
+      object-fit: cover;
+
+      // @include maxWidth($lg) {
+      //   width: 100%;
+      //   opacity: 0;
+      // }
+    }
+
+    h4 {
+      margin-bottom: 4px;
+      padding-top: 30px;
+      font-size: 17px;
+      font-weight: 500;
+      text-align: center;
+      color: $blueMedium;
+
+      @include maxWidth($lg) {
+        display: none;
+      }
+    }
+
+    p {
+      font-weight: 500;
+      color: $blueMedium;
+      font-size: 13px;
+
+      @include maxWidth($lg) {
+        display: none;
+      }
+    }
+  }
+
+  &__message-valid {
+    margin-top: 10px;
+    color: $redBright;
+    display: none;
+
+    &.success {
+      color: $green;
+    }
+  }
+}

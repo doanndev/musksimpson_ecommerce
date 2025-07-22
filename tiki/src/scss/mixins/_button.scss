@@ -1,0 +1,33 @@
+@mixin btnPrimary($color: $grayMedium, $borderColor: transparent) {
+  @include dFlex(center, $gap: 4px);
+  @include textBody($color);
+
+  padding: 8px 16px;
+  border-radius: 05px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.4s;
+  border: 1px solid $borderColor;
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
+
+  &.active {
+    color: $blueMedium;
+    font-weight: 600;
+
+    &:hover {
+      background-color: rgba($blueMedium, 0.12);
+    }
+  }
+
+  &:hover {
+    background-color: rgba($grayDarker, 0.12);
+
+    @if $color == $blueMedium {
+      background-color: rgba($blueMedium, 0.12);
+    }
+  }
+}

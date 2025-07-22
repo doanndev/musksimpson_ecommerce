@@ -1,0 +1,65 @@
+// sass .\src\site-customer\scss\bases\_base.scss .\src\site-customer\styles\bases\style.css --watch
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap');
+
+@import './abstracts';
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  // font-size: 62.5%;
+}
+
+body {
+  @include textBody;
+
+  background-color: $bgPrimary;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a,
+button {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+button {
+  background-color: transparent;
+}
+
+a,
+button,
+input {
+  border: 0;
+  outline: 0;
+  color: inherit;
+}
+
+li,
+ol {
+  list-style: none;
+}
+
+// .container {
+//   max-width: 1440px;
+//   width: 100%;
+//   margin: 0 auto;
+//   padding: 0 24px;
+
+//   &.md {
+//     max-width: 1270px;
+//   }
+// }

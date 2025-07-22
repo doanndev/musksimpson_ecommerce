@@ -1,0 +1,352 @@
+// sass .\src\site-customer\scss\layouts\_header.scss .\src\site-customer\styles\header\style.css --watch
+
+@import '../../../scss/bases/abstracts';
+
+.header {
+  padding: 16px 0;
+  background-color: $white;
+  position: relative;
+  z-index: 9999;
+
+  &__top {
+    @include dFlex($gap: 48px);
+
+    height: 40px;
+
+    @include maxWidth($lg) {
+      @include dFlex($gap: 32px);
+    }
+
+    @include maxWidth($md) {
+      @include dFlex($gap: 16px);
+    }
+  }
+
+  &__logo {
+    width: 57px;
+    height: 40px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__search {
+    @include dFlex;
+
+    height: 100%;
+    flex: 1;
+    position: relative;
+    border-radius: 8px;
+    border: 1px solid $borderGray;
+  }
+
+  &__search-icon {
+    @include position($top: 50%, $left: 16px);
+
+    width: 20px;
+    height: 20px;
+    transform: translateY(-50%);
+  }
+
+  &__search-input {
+    width: 100%;
+    height: 100%;
+    padding-left: 48px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+
+  &__search-btn {
+    @include btnPrimary($blueMedium);
+
+    width: 92px;
+    height: 100%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    position: relative;
+
+    &::after {
+      @include position($left: 0);
+
+      content: '';
+      height: 70%;
+      width: 1px;
+      background-color: $borderGray;
+    }
+  }
+
+  &__search-result {
+    @include position($top: calc(100% + 1px));
+    @include dFlexCol(start, start);
+
+    padding: 8px 0;
+    width: 100%;
+    background-color: $white;
+    box-shadow: rgba(0, 0, 0, 0.28) 0px 6px 12px 0px;
+    display: none;
+
+    &.show {
+      display: flex;
+    }
+  }
+
+  &__search-result-link,
+  &__search-history-link {
+    @include dFlex(start);
+
+    padding: 4px 16px;
+    width: 100%;
+
+    &:hover {
+      background-color: rgba($black, 0.12);
+    }
+
+    img {
+      width: 35px;
+      height: 35px;
+      border-radius: 6px;
+      margin-right: 8px;
+    }
+  }
+
+  &__search-history-text {
+    flex: 1;
+  }
+
+  &__search-history-delete {
+    width: 24px !important;
+    height: 24px !important;
+
+    &:hover {
+      background-color: rgba($black, 0.12);
+    }
+  }
+
+  &__action {
+    display: flex;
+    position: relative;
+  }
+
+  &__action-btn,
+  &__btn-cart {
+    @include btnPrimary;
+  }
+
+  &__btn-cart {
+    position: relative;
+    margin-left: 8px;
+
+    @include maxWidth($lg) {
+      margin: 0;
+      padding: 0;
+    }
+
+    &::after {
+      @include position($left: -8px);
+
+      content: '';
+      height: 70%;
+      width: 1px;
+      background-color: $borderGray;
+
+      @include maxWidth($lg) {
+        display: none;
+      }
+    }
+  }
+
+  &__btn-home,
+  &__btn-astra,
+  &__btn-account {
+    @include maxWidth($lg) {
+      display: none;
+    }
+  }
+
+  &__cart-quantity {
+    @include position($top: -2px, $right: 8px);
+
+    padding: 0.5px 4px;
+    // transform: translate(-50%, -100%);
+    background-color: $redMedium;
+    color: $white;
+    font-weight: 600;
+    border-radius: 999px;
+    font-size: 12px;
+
+    @include maxWidth($lg) {
+      top: 0;
+      right: 0;
+      transform: translate(50%, -50%);
+    }
+  }
+
+  &__btn-account {
+    margin-right: 8px;
+    position: relative;
+  }
+
+  &__btn-account.login:hover &__menu-dropdown {
+    display: block;
+  }
+
+  &__btn-profile {
+    display: none;
+  }
+
+  // &__btn-account.login &__btn-login {
+  //   display: none;
+  // }
+
+  &__btn-account.login &__btn-profile {
+    display: block;
+  }
+
+  &__menu-dropdown {
+    @include position($top: 100%, $right: 0, $zIndex: 2);
+
+    width: 240px;
+    background-color: $white;
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 6px 12px 0px;
+    padding: 10px 0;
+    border-radius: 8px;
+    display: none;
+  }
+
+  &__menu-dropdown-link {
+    @include textBody;
+
+    display: flex;
+    padding: 8px 16px;
+
+    &:hover {
+      background-color: rgba($grayDarker, 0.12);
+    }
+  }
+
+  &__bottom {
+    @include dFlex;
+
+    height: 32px;
+
+    @include maxWidth($lg) {
+      display: none;
+    }
+  }
+
+  &__info {
+    @include dFlex(start, $gap: 8px);
+
+    padding: 8px 16px;
+    cursor: auto;
+  }
+
+  &__info-avatar {
+    @include dFlex(center);
+
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 999px;
+    border: 1px solid $borderGray;
+    overflow: hidden;
+
+    img,
+    span {
+      width: 100%;
+      height: 100%;
+    }
+
+    span {
+      @include dFlex(center);
+
+      font-size: 16px;
+      font-weight: 600;
+      color: $white;
+      background-color: rgba($blueMedium, 0.6);
+    }
+  }
+
+  &__info-name {
+    @include textOverflowEllipsis(1);
+
+    font-weight: 600;
+    color: $blueMedium;
+  }
+
+  &__quick-menu {
+    @include dFlex(start, $gap: 12px, $wrap: wrap);
+
+    width: 712px;
+    color: $grayMedium;
+    overflow: hidden;
+    margin-left: calc(57px + 48px);
+    height: 100%;
+
+    @include maxWidth($xl) {
+      width: 612px;
+    }
+  }
+
+  &__quick-item {
+    @include dFlex(center);
+
+    height: 100%;
+  }
+
+  &__location {
+    @include dFlex;
+  }
+
+  &__location-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  &__location-title {
+    @include textBody($grayMedium);
+  }
+
+  &__location-address {
+    font-weight: 500;
+    margin-left: 4px;
+    text-decoration: underline;
+  }
+
+  // Header fixed
+  &__fixed {
+    @include dFlex;
+    @include position(fixed, $left: 0, $bottom: 0, $right: 0, $zIndex: 999);
+
+    height: 58px;
+    background-color: $white;
+    border-top: 1px solid $borderGray;
+    display: none;
+
+    @include maxWidth($lg) {
+      display: flex;
+    }
+  }
+
+  &__fixed &__action-btn {
+    @include dFlexCol($gap: 4px);
+  }
+
+  &__fixed &__action-btn-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.overlay {
+  @include position(fixed, 0, 0, 0, 0, 99);
+
+  background-color: rgba($black, 0.6);
+  display: none;
+
+  &.show {
+    display: block;
+  }
+}

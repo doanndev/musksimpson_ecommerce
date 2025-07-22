@@ -1,0 +1,573 @@
+// sass .\src\site-customer\pages\details\style.scss .\src\site-customer\pages\details\style.css --watch
+
+@import '../../../../../scss/bases/base';
+
+.product {
+  &__breadcrumb {
+    @include dFlex(start);
+
+    margin: 12px 0;
+  }
+
+  &__breadcrumb-item {
+    @include textBody;
+  }
+
+  &__breadcrumb-link {
+    @include textBody;
+    @include dFlex(start);
+
+    color: $grayMedium;
+    white-space: nowrap;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &::after {
+      @include dFlex(center);
+
+      content: url('https://api.iconify.design/iconamoon/arrow-right-2-thin.svg?color=%23808089&width=24&height=24');
+
+      height: 24px;
+      line-height: 0;
+    }
+  }
+
+  &__breadcrumb-current {
+    @include textOverflowEllipsis(1);
+  }
+
+  &__info,
+  &__detail,
+  &__review,
+  &__description {
+    @include dFlex(start, start);
+
+    border-radius: 5px;
+
+    &--heading {
+      @include heading3;
+
+      font-weight: 400;
+      padding-top: 16px;
+      text-transform: capitalize;
+    }
+  }
+
+  &__info {
+    gap: 16px;
+
+    &--bg-white {
+      padding: 16px;
+      background-color: $white;
+      border-radius: 10px;
+    }
+
+    &--stock {
+      color: $white;
+      font-size: 14px;
+      padding: 4px 8px;
+      background-color: rgba($redMedium, 0.8);
+      border-radius: 999px;
+      display: inline-block;
+    }
+  }
+
+  &__info-image {
+    width: 400px;
+    position: sticky;
+    top: 12px;
+  }
+
+  &__info-image-main {
+    background-color: $grayLighter;
+    border: 1px solid $lineColor;
+    border-radius: 10px;
+
+    .swiper-slide {
+      height: auto;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__info-image-list {
+    @include dGrid(4, 12px);
+
+    margin-top: 8px;
+    overflow: hidden;
+  }
+
+  &__info-image-list img {
+    width: 62px;
+    height: 62px;
+    background-color: $grayLighter;
+    object-fit: cover;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &.active {
+      border: 1px solid $black;
+    }
+  }
+
+  &__info-body {
+    @include dFlex(start, start, 16px);
+  }
+
+  &__info-body-left {
+    @include dFlexCol(start, stretch, $gap: 16px);
+    flex: 1;
+  }
+
+  &__info-content {
+    flex: 1;
+  }
+
+  &__info-rating {
+    @include dFlex(start, $gap: 12px);
+
+    color: $grayMedium;
+    margin-top: 8px;
+  }
+
+  &__info-star {
+    @include dFlex(start);
+  }
+
+  &__info-social {
+    @include dFlex(start, $gap: 8px);
+
+    margin-top: 24px;
+  }
+
+  &__info-watch-comment {
+    position: relative;
+
+    &::after {
+      @include position($top: 0, $right: -5px);
+
+      content: '';
+      display: block;
+      height: 100%;
+      width: 1px;
+      background-color: $grayMedium;
+    }
+  }
+
+  &__info-price-main {
+    @include dFlex(start, end, 16px);
+
+    padding-bottom: 16px;
+  }
+
+  &__info-price {
+    @include heading2;
+
+    font-size: 32px;
+    font-weight: 500;
+    margin-top: 24px;
+    color: $blueMedium;
+
+    &.discount {
+      color: $redMedium;
+    }
+
+    &--discount {
+      text-decoration: line-through;
+      font-size: 22px;
+      font-weight: 400;
+      color: rgba($redMedium, 0.9);
+    }
+  }
+
+  &__info-coupon {
+    padding: 16px 0;
+    border-top: 1px solid $lineColor;
+    border-bottom: 1px solid $lineColor;
+
+    &--title {
+      @include heading5;
+    }
+  }
+
+  &__info-coupon-tags {
+    @include dFlex(start);
+  }
+
+  &__info-coupon-tag {
+    font-weight: 500;
+    padding: 3px 12px;
+    border-radius: 8px;
+    color: $blueMediumDark;
+    border: 1px solid $blueMediumDark;
+    position: relative;
+
+    &::after,
+    &::before {
+      content: '';
+      display: block;
+      width: 10px;
+      height: 10px;
+      background-color: $white;
+      border-radius: 9999px;
+      border-width: 1px;
+      border-style: solid;
+      border-color: transparent rgb(13, 92, 182) rgb(13, 92, 182) transparent;
+    }
+
+    &::before {
+      @include position($top: 50%, $left: -1px);
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    &::after {
+      @include position($top: 50%, $right: -1px);
+      transform: translate(50%, -50%) rotate(135deg);
+    }
+  }
+
+  &__info-coupon-icon {
+    width: 28px;
+  }
+
+  &__info-address {
+    margin: 16px 0;
+  }
+
+  &__info-address-change {
+    cursor: pointer;
+    @include heading5;
+
+    .underline {
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .button-change {
+      font-weight: 500;
+      color: $blueDark;
+    }
+  }
+
+  &__info-delivery {
+    padding: 8px;
+    border-radius: 12px;
+    border: 1px solid $lineColor;
+  }
+
+  &__info-delivery-icon {
+    @include dFlex(start);
+    margin-bottom: 8px;
+
+    img {
+      width: 20px;
+      padding-right: 4px;
+    }
+  }
+
+  &__info-delivery-time {
+    padding-left: 4px;
+    position: relative;
+    color: $green;
+    font-weight: 500;
+
+    &::after {
+      @include positionCenter($left: 0, $x: 0);
+      content: '';
+      height: 40%;
+      width: 1px;
+      background-color: $lineColor;
+    }
+  }
+
+  &__info-delivery-price {
+    @include textBody;
+  }
+
+  &__info-body-right {
+    width: 368px;
+    position: sticky;
+    top: 12px;
+  }
+
+  &__info-quantity {
+    span {
+      display: block;
+      margin-top: 16px;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__info-quantity-control {
+    @include dFlex(start);
+
+    width: fit-content;
+    border-radius: 8px;
+    border: 1px solid $lineColor;
+    height: 30px;
+
+    input {
+      width: 40px;
+      height: 100%;
+      text-align: center;
+      border-left: 1px solid $lineColor;
+      border-right: 1px solid $lineColor;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+  }
+
+  &__info-quantity-btn {
+    @include dFlex(center);
+
+    width: 30px;
+    height: 100%;
+
+    &.disable {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+  }
+
+  &__info-btn {
+    @include dFlex(start, $gap: 12px);
+
+    width: 100%;
+    margin-top: 16px;
+    height: 48px;
+  }
+
+  &__info-btn-buy {
+    @include heading5($white);
+
+    min-width: 190px;
+    width: 100%;
+    height: 100%;
+    background-color: $redMedium;
+    border-radius: 8px;
+    text-transform: capitalize;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__info-btn-chat {
+    width: 48px;
+    height: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid $blueMediumDark;
+    color: $blueMediumDark;
+    text-align: center;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  &__detail,
+  &__description {
+    display: block;
+
+    &--heading {
+      font-size: 20px;
+    }
+  }
+
+  &__detail-table {
+    margin-top: 16px;
+    width: 100%;
+  }
+
+  &__detail-table-row {
+    @include dFlex(start, stretch);
+  }
+
+  &__detail-item {
+    padding: 10px 15px;
+  }
+
+  &__detail-value {
+    flex: 1;
+  }
+
+  &__detail-label {
+    @include dFlex();
+    width: 220px;
+    height: auto;
+    background-color: $lightBg;
+  }
+
+  &__detail-table-row:nth-child(even) {
+    background-color: $lightMediumBg;
+  }
+
+  // Review
+  &__review {
+    display: block;
+    margin-top: 16px;
+    padding: 16px;
+
+    &--heading {
+      font-size: 20px;
+      padding-bottom: 16px;
+    }
+  }
+
+  &__review-row {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    padding: 0 48px;
+  }
+
+  &__rating-summary {
+    @include dFlex(start, start, 8px);
+
+    margin-bottom: 8px;
+  }
+
+  &__rating-total {
+    color: $grayMedium;
+  }
+
+  &__rating-point {
+    font-size: 32px;
+    line-height: 40px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  &__rating-level {
+    @include dFlex(start, $gap: 8px);
+  }
+
+  &__rating-level-process {
+    width: 138px;
+    height: 6px;
+    border-radius: 999px;
+    background-color: $grayLightest;
+  }
+
+  &__rating-level-number {
+    color: $grayMedium;
+    font-size: 11px;
+  }
+
+  &__description {
+    img {
+      margin: auto;
+      max-width: 100%;
+      height: auto !important;
+    }
+
+    h3 {
+      margin: 16px 0;
+    }
+
+    p {
+      margin-top: 5px;
+      margin-bottom: 12px;
+      line-height: 21px;
+      word-break: break-word;
+    }
+
+    ul {
+      margin: 14px 0;
+      padding-left: 40px;
+    }
+
+    li {
+      padding: 12px 0;
+      list-style: disc;
+    }
+  }
+}
+
+.image-gallery {
+  $sizeImage: 550px;
+
+  @include dFlex(center, $gap: 64px);
+  @include position(fixed, 0, 0, 0, 0, 999999);
+
+  background-color: $black;
+  opacity: 0;
+  visibility: hidden;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__wrapper {
+    width: $sizeImage;
+    height: $sizeImage;
+    overflow: hidden;
+  }
+
+  &__list {
+    @include dFlex;
+
+    transition: 0.3s;
+  }
+
+  &__list img {
+    width: $sizeImage;
+    height: $sizeImage;
+    border-radius: 3px;
+  }
+
+  &__btn {
+    @include dFlexCol(center);
+
+    width: 48px;
+    height: 48px;
+    border-radius: 9999px;
+    background-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    transition: 2px;
+
+    svg {
+      width: 45px;
+      height: 45px;
+      flex: 1;
+    }
+
+    span {
+      flex: 1;
+      white-space: nowrap;
+    }
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  &__btn.disable {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  &__btn:hover {
+    opacity: 0.8;
+  }
+
+  &__btn-open {
+    cursor: pointer;
+  }
+
+  &__btn-close {
+    @include position($top: 54px, $right: 54px);
+
+    color: $white;
+  }
+}
